@@ -1,36 +1,42 @@
-// Declara um array vazio chamado amigos para armazenar os nomes dos amigos.
 let amigos = [];
 
 function adicionar() {
     let amigo = document.getElementById('nome-amigo');
-    if(amigo.value == ''){
+    if (amigo.value == '') {
         alert('Informe o nome do amigo!');
-        return; 
+        return;
     }
+
+    if (amigos.includes(amigo.value)) {
+        alert('Nome já adicionado!');
+        return;
+    }
+
     let lista = document.getElementById('lista-amigos');
-    // Adiciona o valor do campo de texto ao array amigos.
+
     amigos.push(amigo.value);
-    // Verifica se a lista está vazia. Se estiver, adiciona o novo amigo.
+
     if (lista.textContent == '') {
         lista.textContent = amigo.value;
     } else {
         lista.textContent = lista.textContent + ', ' + amigo.value;
     }
-    // Limpa o campo de texto após adicionar o amigo.
+
     amigo.value = '';
 }
 
 function sortear() {
-    embaralhar(amigos);
-    let sorteio = document.getElementById('lista-sorteio');
+    if (amigos.length < 4) {
+        alert('Adicione pelo menos 4 amigos!');
+        return;
+    }
 
-    // laço for percorre todos os elementos do array amigos, utilizando o índice i como contador
-    //O loop executa de 0 até o último índice
+    embaralhar(amigos);
+
+    let sorteio = document.getElementById('lista-sorteio');
     for (let i = 0; i < amigos.length; i++) {
-        // Verifica se é o último amigo da lista para fazer o emparelhamento com o primeiro.
         if (i == amigos.length - 1) {
             sorteio.innerHTML = sorteio.innerHTML + amigos[i] +' --> ' +amigos[0] + '<br/>';
-        // Caso contrário, emparelha com o próximo amigo da lista.
         } else {
             sorteio.innerHTML = sorteio.innerHTML + amigos[i] +' --> ' +amigos[i + 1] + '<br/>';
         }
